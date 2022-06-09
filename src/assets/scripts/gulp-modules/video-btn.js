@@ -6,7 +6,7 @@ cerchio.forEach((elem) => {
   });
 });
 
-// $(document).on('mousemove touch', function(e){
+// $(document).on('mousemove touch', function(e) {
 //   magnetize('.cerchio', e);
 // });
 
@@ -43,9 +43,9 @@ function calculateDistance(elem, mouseX, mouseY) {
 }
 
 // /* - MOUSE STICKY -*/
-// function lerp(a, b, n) {
-//   return (1 - n) * a + n * b;
-// }
+function lerp(a, b, n) {
+  return (1 - n) * a + n * b;
+}
 
 // // Inizio Cursor
 // class Cursor {

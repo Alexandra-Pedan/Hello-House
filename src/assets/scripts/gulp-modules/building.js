@@ -29,7 +29,15 @@ function getBuildData(id) {
     body: data,
   });
 }
-
+function getBuildData(id) {
+  const data = new FormData();
+  data.append('action', 'buildProgress');
+  data.append('id', id);
+  return fetch('/wp-admin/admin-ajax.php', {
+    method: 'POST',
+    body: data,
+  });
+}
 function createBuildCard(build) {
   return `
   <li class="building-item js-build-card ${build.section}  data-build-id="${build.id}">
@@ -61,7 +69,8 @@ function createBuilds(currentCount, builds, count = 6) {
 }
 
 function loadMoreHandler(state, containers) {
-  const count = state.countShowBuild + 6 < state.builds.length ? 6 : state.builds.length - state.countShowBuild;
+  const count =
+    state.countShowBuild + 6 < state.builds.length ? 6 : state.builds.length - state.countShowBuild;
   if (count < 6 || state.countShowBuild + 6 === state.builds.length) {
     // eslint-disable-next-line no-param-reassign
     containers.loadMore.style.display = 'none';
@@ -294,7 +303,7 @@ async function initBuild() {
       if (index <= 0) return this.buildsList.length - 1;
       return index - 1;
     },
-    updateCurrentId: (id) => {
+    updateCurrentId: id => {
       this.currentBuildId = id;
     },
   };
@@ -417,17 +426,19 @@ function updateContentPopup(build, containers) {
 const buildList = document.querySelectorAll('.js-build-card');
 const btnBuild = document.querySelectorAll('.building-filter__item');
 
-btnBuild.forEach(el => el.addEventListener('click', (event) => {
-  if (event.target.tagName != 'BUTTON') return false;
-  const target = event.target.dataset.view;
-  btnBuild.forEach(button => button.classList.remove('active'));
-  el.classList.add('active');
-  buildList.forEach((elem) => {
-    elem.classList.remove('hide');
-    document.querySelector('[data-build-container]').insertAdjacentElement('afterbegin', elem);
-    if (!elem.classList.contains(target) && target != 'all') {
-      elem.remove();
-    }
-  });
-}));
+btnBuild.forEach(el =>
+  el.addEventListener('click', event => {
+    if (event.target.tagName != 'BUTTON') return false;
+    const target = event.target.dataset.view;
+    btnBuild.forEach(button => button.classList.remove('active'));
+    el.classList.add('active');
+    buildList.forEach(elem => {
+      elem.classList.remove('hide');
+      document.querySelector('[data-build-container]').insertAdjacentElement('afterbegin', elem);
+      if (!elem.classList.contains(target) && target != 'all') {
+        elem.remove();
+      }
+    });
+  }),
+);
 // filter end

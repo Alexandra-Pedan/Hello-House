@@ -297,12 +297,12 @@ $screen-height: 720;
   display: inline-block;
   --speed: 0.3s;
   --span-height: 1.3em;
-  // @include to(1440px) {
-  //   --span-height: 1.3em;
-  // }
-  // @include to(575px) {
-  //   --span-height: 1.6em;
-  // }
+  @include to(1440px) {
+    --span-height: 1.2em;
+  }
+  @include to(992px) {
+    --span-height: 1.1em;
+  }
   &:after {
     position: absolute;
     bottom: 105%;

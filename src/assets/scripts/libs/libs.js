@@ -2,3 +2,4 @@
 @@include('./jquery/jquery.min.js')
 @@include('./swiper/swiper.js')
 @@include('./mfp/index.js')
+@@include('./gsap/gsap.js')
